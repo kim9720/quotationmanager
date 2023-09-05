@@ -13,31 +13,42 @@ import {
 } from '@mui/material';
 
 const CreateQuotation = ({ addQuotation, quotations }) => {
-    const [openModal, setOpenModal] = useState(false); // State to control modal visibility
+    const [openModal, setOpenModal] = useState(false);
     const [customerName, setCustomerDetails] = useState('');
-    const [newProduct, setNewProduct] = useState({ name: '', quantity: 1, price: 0 });
-    const [referenceNumber, setReferenceNumber] = useState(''); // Define referenceNumber
-    const [quotationDate, setQuotationDate] = useState(''); // Define quotationDate
+    const [products, setProducts] = useState([{ name: '', quantity: 1, price: 0 }]);
+    const [referenceNumber, setReferenceNumber] = useState('');
+    const [quotationDate, setQuotationDate] = useState('');
 
+    const addProduct = () => {
+        setProducts([...products, { name: '', quantity: 1, price: 0 }]);
+    };
 
+    const calculateTotal = () => {
+        return products.reduce(
+            (total, product) => total + product.price * product.quantity,
+            0
+        );
+    };
 
     const handleSubmit = () => {
         const newQuotation = {
-            id: quotations.length + 1, // Generate a unique ID as needed
-            date: new Date().toLocaleDateString(), // Date of creation
+            id: quotations.length + 1,
+            date: new Date().toLocaleDateString(),
             customerName,
-            newProduct,
-            referenceNumber, // Added referenceNumber
-            quotationDate, // Added quotationDate
-          };
-          
+            products,
+            referenceNumber,
+            quotationDate,
+            total: calculateTotal(), // Calculate the total price
+        };
+
         addQuotation(newQuotation);
         setOpenModal(false);
     };
 
     return (
         <div>
-            <Typography variant="h5"></Typography><br/>
+            <Typography variant="h5"></Typography>
+            <br />
             <Button variant="outlined" size="large" onClick={() => setOpenModal(true)}>
                 Open Quotation Modal
             </Button>
@@ -74,45 +85,63 @@ const CreateQuotation = ({ addQuotation, quotations }) => {
                             shrink: true,
                         }}
                     />
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <TextField
-                                label="Product/Services"
-                                fullWidth
-                                value={newProduct.name}
-                                onChange={(e) =>
-                                    setNewProduct({ ...newProduct, name: e.target.value })
-                                }
-                                margin="normal"
-                            />
+                    {products.map((product, index) => (
+                        <Grid container spacing={2} key={index}>
+                            <Grid item xs={6}>
+                                <TextField
+                                    label="Product/Service"
+                                    fullWidth
+                                    value={product.name}
+                                    onChange={(e) =>
+                                        setProducts((prevProducts) => {
+                                            const updatedProducts = [...prevProducts];
+                                            updatedProducts[index].name = e.target.value;
+                                            return updatedProducts;
+                                        })
+                                    }
+                                    margin="normal"
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField
+                                    label="Quantity"
+                                    type="number"
+                                    fullWidth
+                                    value={product.quantity}
+                                    onChange={(e) =>
+                                        setProducts((prevProducts) => {
+                                            const updatedProducts = [...prevProducts];
+                                            updatedProducts[index].quantity = e.target.value;
+                                            return updatedProducts;
+                                        })
+                                    }
+                                    margin="normal"
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField
+                                    label="Price"
+                                    type="number"
+                                    fullWidth
+                                    value={product.price}
+                                    onChange={(e) =>
+                                        setProducts((prevProducts) => {
+                                            const updatedProducts = [...prevProducts];
+                                            updatedProducts[index].price = e.target.value;
+                                            return updatedProducts;
+                                        })
+                                    }
+                                    margin="normal"
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={3}>
-                            <TextField
-                                label="Quantity"
-                                type="number"
-                                fullWidth
-                                value={newProduct.quantity}
-                                onChange={(e) =>
-                                    setNewProduct({ ...newProduct, quantity: e.target.value })
-                                }
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField
-                                label="Price"
-                                type="number"
-                                fullWidth
-                                value={newProduct.price}
-                                onChange={(e) =>
-                                    setNewProduct({ ...newProduct, price: e.target.value })
-                                }
-                                margin="normal"
-                            />
-                        </Grid>
-                    </Grid>
-                    {/* Product input fields */}
-                    {/* Add product button */}
+                    ))}
+                    <Typography variant="h6">
+                        Total Price: Tsh {calculateTotal()}
+                    </Typography>
+                    <Button variant="outlined" onClick={addProduct}>
+                        Add Another Product
+                    </Button>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenModal(false)} color="primary">
@@ -126,4 +155,5 @@ const CreateQuotation = ({ addQuotation, quotations }) => {
         </div>
     );
 };
+
 export default CreateQuotation;
