@@ -42,7 +42,7 @@ const ConvertToInvoice = ({ quotation, onConvert }) => {
         <DialogTitle>Convert to Invoice</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to convert this quotation to an invoice?
+            We need connection to backend
           </DialogContentText>
         </DialogContent>
         <DialogActions>
