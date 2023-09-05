@@ -50,7 +50,7 @@ const CreateQuotation = ({ addQuotation, quotations }) => {
             <Typography variant="h5"></Typography>
             <br />
             <Button variant="outlined" size="large" onClick={() => setOpenModal(true)}>
-                Open Quotation Modal
+                New Quotation 
             </Button>
 
             {/* Quotation Modal */}

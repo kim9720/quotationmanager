@@ -12,10 +12,7 @@ const Header = () => {
         <Typography variant="h6" style={{ flexGrow: 1 }}>
         Quotation System
         </Typography>
-        <Button color="inherit">Home</Button>
-        <Button color="inherit">About</Button>
-        <Button color="inherit">Services</Button>
-        <Button color="inherit">Contact</Button>
+        
       </Toolbar>
     </AppBar>
   );

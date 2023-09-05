@@ -1,0 +1,12 @@
+/* Hide unnecessary elements */
+body * {
+    display: none;
+}
+
+/* Display only the invoice content */
+#print-invoice {
+    display: block;
+}
+
+/* Additional print styles for formatting */
+/* ... */

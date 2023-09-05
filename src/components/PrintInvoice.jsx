@@ -17,19 +17,52 @@ const PrintInvoice = ({ invoiceData }) => {
     };
 
     const printInvoice = () => {
-        const printContents = document.getElementById('invoice-content').innerHTML;
-        const originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
+        const printWindow = window.open('', '', 'width=600,height=600');
+        
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Invoice</title>
+                <style>
+                    /* Add your CSS styles here, if needed */
+                    td, th {
+                        border: 1px solid #777;
+                        padding: 0.5rem;
+                        text-align: center;
+                    }
+                     
+                    table {
+                        border-collapse: collapse;
+                    }
+                     
+                    TableBody TableRow:nth-child(odd) {
+                        background: #eee;
+                    }
+                    caption {
+                        font-size: 0.8rem;
+                    }
+                    
+                </style>
+            </head>
+            <body>${invoiceContentRef.current.innerHTML}</body>
+            </html>
+        `);
+        
+        printWindow.document.close();
+        printWindow.print();
+        printWindow.close();
     };
+
+    // Create a ref to the content of the PrintInvoice component
+    const invoiceContentRef = useRef();
 
     return (
         <div>
             <Button variant="outlined" onClick={printInvoice}>
                 Print Invoice
             </Button>
-            <div id="invoice-content">
+            <div ref={invoiceContentRef} id="invoice-content">
                 <Paper>
                     <Typography variant="h5" align="center">
                         Invoice

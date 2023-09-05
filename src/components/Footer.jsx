@@ -8,11 +8,10 @@ const Footer = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Typography variant="h6" gutterBottom>
-              Your Company Name
+              Mohamed Sadik Hababuu
             </Typography>
             <Typography variant="body2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec
-              purus feugiat, vestibulum libero eu, dignissim nunc.
+              Tomondo Zanzibat
             </Typography>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -44,12 +43,12 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} md={3}>
             <Typography variant="h6" gutterBottom>
-              Contact
+              Contact 0778665524
             </Typography>
             <address>
-              123 Main Street<br />
-              City, Country<br />
-              Email: <Link href="mailto:info@example.com" style={{ color: '#fff', textDecoration: 'none' }}>info@example.com</Link>
+              Changu Main Street<br />
+              Zanzibar City, Country<br />
+              Email: <Link href="mailto:info@example.com" style={{ color: '#fff', textDecoration: 'none' }}>dulisadik@gmail.com.com</Link>
             </address>
           </Grid>
         </Grid>

@@ -12,6 +12,8 @@ import {
     TableSortLabel,
     Button,
     IconButton,
+    Grid,
+    
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -98,103 +100,115 @@ const QuotationList = ({ quotations, onEdit, onDelete, onPrint }) => {
 
     return (
         <div>
-            <Typography variant="h5">Quotation List</Typography>
             {quotations.length === 0 ? (
                 <Typography>No quotations available.</Typography>
             ) : (
+
                 <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell className='table-header-cell'>
-                                    <TableSortLabel
-                                        active={orderBy === 'customerName'}
-                                        direction={orderBy === 'customerName' ? order : 'asc'}
-                                        onClick={() => handleRequestSort('customerName')}
-                                    >
-                                        Customer
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell>Reference Number</TableCell>
-                                <TableCell>
-                                    <TableSortLabel
-                                        active={orderBy === 'date'}
-                                        direction={orderBy === 'date' ? order : 'asc'}
-                                        onClick={() => handleRequestSort('date')}
-                                    >
-                                        Date
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell>Product/Service</TableCell>
-                                <TableCell>Quantity</TableCell>
-                                <TableCell>Price</TableCell>
-                                <TableCell>Total Price</TableCell>
-                                <TableCell>Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {stableSort(quotations, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((quotation) => (
-                                    <TableRow key={quotation.id}>
-                                        <TableCell>{quotation.customerName}</TableCell>
-                                        <TableCell>{quotation.referenceNumber}</TableCell>
-                                        <TableCell>{quotation.date}</TableCell>
-                                        <TableCell>
-                                            {quotation.products.map((product, index) => (
-                                                <div key={index}>
-                                                    {product.name}
-                                                </div>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell>
-                                            {quotation.products.map((product, index) => (
-                                                <div key={index}>
-                                                    {product.quantity}
-                                                </div>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell>
-                                            {quotation.products.map((product, index) => (
-                                                <div key={index}>
-                                                    {product.price}
-                                                </div>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell>
-                                            {calculateTotalPrice(quotation)}
-                                        </TableCell>
-                                        <TableCell>
-                                            <IconButton
-                                                aria-label="Edit"
-                                                onClick={() => onEdit(quotation.id)}
+                    <Grid container spacing={3}>
+                        <Grid xs>
+                        </Grid>
+                        <Grid xs={9}>
+                            <br/>
+                        <h4 variant="h5">Quotation List</h4>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell className='table-header-cell'>
+                                            <TableSortLabel
+                                                active={orderBy === 'customerName'}
+                                                direction={orderBy === 'customerName' ? order : 'asc'}
+                                                onClick={() => handleRequestSort('customerName')}
                                             >
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                aria-label="Delete"
-                                                onClick={() => onDelete(quotation.id)}
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                aria-label="Print"
-                                                onClick={() => handlePrint(quotation.id)}
-                                            >
-                                                <PrintIcon />
-                                            </IconButton>
+                                                Customer
+                                            </TableSortLabel>
                                         </TableCell>
+                                        <TableCell>Reference Number</TableCell>
+                                        <TableCell>
+                                            <TableSortLabel
+                                                active={orderBy === 'date'}
+                                                direction={orderBy === 'date' ? order : 'asc'}
+                                                onClick={() => handleRequestSort('date')}
+                                            >
+                                                Date
+                                            </TableSortLabel>
+                                        </TableCell>
+                                        <TableCell>Product/Service</TableCell>
+                                        <TableCell>Quantity</TableCell>
+                                        <TableCell>Price</TableCell>
+                                        <TableCell>Total Price</TableCell>
+                                        <TableCell>Actions</TableCell>
                                     </TableRow>
-                                ))}
-                        </TableBody>
-                        {/* Print the selected quotation */}
-                        {openPrintDialog && selectedQuotation && (
-                            <PrintSingleInvoice
-                                selectedQuotation={selectedQuotation}
-                                onClose={handleClosePrintDialog}
-                            />
-                        )}
-                    </Table>
+                                </TableHead>
+                                <TableBody>
+                                    {stableSort(quotations, getComparator(order, orderBy))
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((quotation) => (
+                                            <TableRow key={quotation.id}>
+                                                <TableCell>{quotation.customerName}</TableCell>
+                                                <TableCell>{quotation.referenceNumber}</TableCell>
+                                                <TableCell>{quotation.date}</TableCell>
+                                                <TableCell>
+                                                    {quotation.products.map((product, index) => (
+                                                        <div key={index}>
+                                                            {product.name}
+                                                        </div>
+                                                    ))}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {quotation.products.map((product, index) => (
+                                                        <div key={index}>
+                                                            {product.quantity}
+                                                        </div>
+                                                    ))}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {quotation.products.map((product, index) => (
+                                                        <div key={index}>
+                                                            {product.price}
+                                                        </div>
+                                                    ))}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {calculateTotalPrice(quotation)}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <IconButton
+                                                        aria-label="Edit"
+                                                        onClick={() => onEdit(quotation.id)}
+                                                    >
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    <IconButton
+                                                        aria-label="Delete"
+                                                        onClick={() => onDelete(quotation.id)}
+                                                    >
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                    <IconButton
+                                                        aria-label="Print"
+                                                        onClick={() => handlePrint(quotation.id)}
+                                                    >
+                                                        <PrintIcon />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                </TableBody>
+                                {/* Print the selected quotation */}
+                                {openPrintDialog && selectedQuotation && (
+                                    <PrintSingleInvoice
+                                        selectedQuotation={selectedQuotation}
+                                        onClose={handleClosePrintDialog}
+                                    />
+                                )}
+                            </Table>
+                        </Grid>
+                        <Grid xs>
+                           
+                        </Grid>
+                    </Grid>
+
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
