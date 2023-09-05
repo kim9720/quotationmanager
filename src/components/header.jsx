@@ -10,7 +10,7 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Your App Name
+        Quotation System
         </Typography>
         <Button color="inherit">Home</Button>
         <Button color="inherit">About</Button>
